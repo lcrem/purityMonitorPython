@@ -94,7 +94,7 @@ for channel in channels:
     yy_sg = signal.savgol_filter(y_int, window_size, poly_order)
     plt.plot(xnew, yy_sg, label='sub +  Savitzky-Golay filter')    
     
-    rms = np.sqrt(np.mean(y1hvoff[500000:]**2))
+    rms = np.sqrt(np.mean(y_int[10:200]**2))
     print(rms)
     err_stdev = [rms for item in xnew]
     
