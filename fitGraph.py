@@ -7,6 +7,7 @@
 import sys, numbers, array, ROOT
 import numpy as np
 import matplotlib.pyplot as plt
+import array
 from scipy import signal, interpolate
 from scipy.optimize import curve_fit, leastsq
 import h5py
@@ -26,14 +27,13 @@ def getArraysFromFile(inFolderName, runNumber, channel, graphname):
 
     inFile1 = ROOT.TFile.Open ( inFolderName+'/Run'+str(runNumber)+'/RawAverages_ch'+str(channel)+'.root' ," READ ")
     graph1 = inFile1.Get(graphname)
-    x = (np.array ( graph1.GetX() ) - 0.05*graph1.GetN()*2)*1e-9 
-    y = np.array ( graph1.GetY() ) 
+    x = (array.array ( 'd', graph1.GetX() ) - 0.05*graph1.GetN()*2*np.ones(graph1.GetN()))*1e-9 
+    y = array.array ( 'd', graph1.GetY() ) 
 
     # zero-baseline
     window_size=int(0.045*graph1.GetN())
     baseline = np.average(y[100:window_size])
     y = y - baseline
-    
     return x,y
 
 
