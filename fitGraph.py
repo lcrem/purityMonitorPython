@@ -4,7 +4,7 @@
 #  Questions to l.cremonesi@qmul.ac.uk
 ###################################################################################
 
-import sys, numbers, array, ROOT
+import sys, numbers, array, uproot
 import numpy as np
 import matplotlib.pyplot as plt
 import array
@@ -23,15 +23,22 @@ prm = int(sys.argv[4])
 
 print( " Reading from " + inFolderName + "run " + str(runNumber) + " with HV off run " + str(hvoffNumber) + " PrM " + str(prm))
 
+
 def getArraysFromFile(inFolderName, runNumber, channel, graphname):
 
-    inFile1 = ROOT.TFile.Open ( inFolderName+'/Run'+str(runNumber)+'/RawAverages_ch'+str(channel)+'.root' ," READ ")
-    graph1 = inFile1.Get(graphname)
-    x = (array.array ( 'd', graph1.GetX() ) - 0.05*graph1.GetN()*2*np.ones(graph1.GetN()))*1e-9 
-    y = array.array ( 'd', graph1.GetY() ) 
+    inFile = uproot.open ( inFolderName+'/Run'+str(runNumber)+'/RawAverages_ch'+str(channel)+'.root' )
 
+    # Read x
+    x = inFile[graphname].values("x")
+    # We use 5% pre-trigger, so move the waveform by 5% so that the lamp trigger is at t=0
+    x = x - 0.05*len(x)*2*np.ones(len(x))
+    # Change from ns to s
+    x*=1e-9
+
+    # Read y
+    y = inFile[graphname].values("y")
     # zero-baseline
-    window_size=int(0.045*graph1.GetN())
+    window_size=int(0.045*len(x))
     baseline = np.average(y[100:window_size])
     y = y - baseline
     return x,y

@@ -52,4 +52,4 @@ errt3=np.sqrt(perrA[4]*perrA[4] + perrA[2]*perrA[2])
 errtaulife=0
 
 
-print(' QA =  %3.1f +/- %3.1f mV \n QK = %3.1f +/- %3.1f mV \n R  =  %3.3f +/- %3.1f \n t1 =  %3.1f +/- %3.1f us \n t2 =  %3.1f +/- %3.1f us \n t3 =  %3.1f +/- %3.1f us \n taulife =  %3.1f +/- %3.1f us' % (QA, errQA, QK, errQK, R, errR, t1*1e6, errt1*1e6, t2*1e6, errt2*1e6, t3*1e6, errt3*1e6, taulife*1e6, errtaulife*1e6))
+print(' QA =  %3.1f +/- %3.1f mV \n QK = %3.1f +/- %3.1f mV \n R  =  %3.2f +/- %3.2f \n t1 =  %3.1f +/- %3.1f us \n t2 =  %3.1f +/- %3.1f us \n t3 =  %3.1f +/- %3.1f us \n taulife =  %3.1f +/- %3.1f us' % (QA, errQA, QK, errQK, R, errR, t1*1e6, errt1*1e6, t2*1e6, errt2*1e6, t3*1e6, errt3*1e6, taulife*1e6, errtaulife*1e6))
